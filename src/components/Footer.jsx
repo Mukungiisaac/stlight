@@ -23,48 +23,24 @@ const Footer = () => {
   return (
     <footer id="contact" className="bg-[#111111] text-white pt-24 pb-12">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+        <div className="flex flex-col md:flex-row justify-center items-start md:gap-32 gap-12 mb-20">
           {/* Company Info */}
-          <div className="space-y-8">
-            <img src={logo} alt="ST.LIGHT" className="h-12 w-auto brightness-0 invert" />
-            <p className="text-gray-400 leading-relaxed max-w-sm">
-              Leading the transition to clean, intelligent energy across East Africa since 2012. Quality you can trust, technology you can rely on.
+          <div className="space-y-6 max-w-xs">
+            <img src={logo} alt="ST.LIGHT" className="h-10 w-auto brightness-0 invert" />
+            <p className="text-gray-400 leading-relaxed text-sm">
+              Leading the transition to clean, intelligent energy across East Africa. Quality you can trust, technology you can rely on.
             </p>
             <div className="flex items-center space-x-4">
-              {[FaFacebook, FaTwitter, FaInstagram, FaLinkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all">
+              {[FaFacebook, FaInstagram].map((Icon, i) => (
+                <a key={i} href="#" className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-blue hover:text-white transition-all text-sm">
                   <Icon />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-bold mb-8 flex items-center">
-              <span className="w-8 h-[2px] bg-brand-blue mr-3" />
-              Quick Links
-            </h4>
-            <ul className="space-y-4">
-              {[
-                { name: 'Product Catalogue', href: '#catalogue' },
-                { name: 'Installation Gallery', href: '#gallery' },
-                { name: 'Digital QR Experience', href: '#qr-code' },
-                { name: 'System Advantages', href: '#advantages' },
-                { name: 'Contact & Support', href: '#contact' }
-              ].map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-brand-blue transition-colors flex items-center group">
-                    <FaArrowRight className="text-[10px] mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Contact Info */}
-          <div>
+          <div className="w-full max-w-xs">
             <h4 className="text-lg font-bold mb-8 flex items-center">
               <span className="w-8 h-[2px] bg-brand-green mr-3" />
               Contact Us
@@ -75,7 +51,7 @@ const Footer = () => {
                   <FaPhoneAlt />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-bold uppercase mb-1">Hotline</p>
+                  <p className="text-xs text-gray-400 font-bold uppercase mb-1">Hotline</p>
                   <p className="text-gray-200 font-bold text-lg">{settings.phoneNumber}</p>
                 </div>
               </div>
@@ -84,29 +60,10 @@ const Footer = () => {
                   <FaWhatsapp />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500 font-bold uppercase mb-1">WhatsApp Support</p>
+                  <p className="text-xs text-gray-400 font-bold uppercase mb-1">WhatsApp Support</p>
                   <p className="text-gray-200 font-bold">Chat with Sales</p>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-lg font-bold mb-8 flex items-center">
-              <span className="w-8 h-[2px] bg-brand-orange mr-3" />
-              Newsletter
-            </h4>
-            <p className="text-gray-400 mb-6">Get updates on new tech and energy tips.</p>
-            <div className="relative">
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-6 pr-16 focus:outline-none focus:ring-2 focus:ring-brand-blue transition-all"
-              />
-              <button className="absolute right-2 top-1/2 -translate-y-1/2 w-12 h-12 bg-brand-blue text-white rounded-xl flex items-center justify-center hover:bg-brand-blue-deep transition-all shadow-lg">
-                <FaArrowRight />
-              </button>
             </div>
           </div>
         </div>

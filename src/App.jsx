@@ -12,11 +12,23 @@ import Footer from './components/Footer';
 import ProductModal from './components/ProductModal';
 import AdminLogin from './pages/admin/Login';
 import AdminDashboard from './pages/admin/Dashboard';
+import CategorySelection from './components/CategorySelection';
 
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [view, setView] = useState('categories'); // 'categories' or 'products'
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+    setView('products');
+  };
+
+  const handleBackToCategories = () => {
+    setView('categories');
+    setSelectedCategory(null);
+  };
 
   useEffect(() => {
     const applyTheme = async () => {
@@ -51,14 +63,24 @@ function App() {
           {/* Public Catalogue Routes */}
           <Route path="/" element={
             <>
-              <Navbar />
-              <main>
-                <Hero />
-                <SolutionFinder activeCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
-                <ProductGrid onSelectProduct={handleOpenModal} selectedCategory={selectedCategory} />
-                <QRSection />
-                <Advantages />
-                <Gallery />
+              <Navbar onBack={view === 'products' ? handleBackToCategories : null} />
+              <main className="pt-20">
+                {view === 'categories' ? (
+                  <CategorySelection onSelectCategory={handleCategorySelect} />
+                ) : (
+                  <>
+                    <div className="px-6 py-4 flex items-center justify-between bg-gray-50 border-b border-gray-100">
+                      <button 
+                        onClick={handleBackToCategories}
+                        className="text-brand-blue font-black uppercase text-[10px] tracking-widest flex items-center gap-2"
+                      >
+                        ← Main Menu
+                      </button>
+                      <h2 className="text-sm font-black text-brand-black uppercase italic">{selectedCategory}</h2>
+                    </div>
+                    <ProductGrid onSelectProduct={handleOpenModal} selectedCategory={selectedCategory} />
+                  </>
+                )}
               </main>
               <Footer />
               <ProductModal 
