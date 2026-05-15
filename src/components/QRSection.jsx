@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
 const QRSection = () => {
-  const catalogueUrl = "https://stlight.vercel.app"; // Placeholder for your production URL
+  const catalogueUrl = "https://stlightcatalogue-git-main-itechstudios86-2664s-projects.vercel.app/";
   const qrRef = useRef(null);
 
   const downloadQR = () => {
