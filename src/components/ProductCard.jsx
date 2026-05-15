@@ -21,8 +21,8 @@ const ProductCard = ({ product, onDetails }) => {
   const waLink = `https://wa.me/${settings.phoneNumber.replace('+', '')}?text=I'm interested in ${product.name}`;
   return (
     <motion.div
-      whileHover={{ y: -10 }}
-      className="bg-white rounded-[2rem] overflow-hidden shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.2)] transition-all duration-500 border border-gray-100/50 group"
+      whileHover={{ y: -12, scale: 1.01 }}
+      className="bg-white rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,0,0,0.08)] hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.15)] transition-all duration-700 border border-gray-100/30 group"
     >
       <div className="relative aspect-[4/5] overflow-hidden bg-[#F9F9F9]">
         {/* Premium Category Tag */}
