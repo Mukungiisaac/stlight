@@ -1,12 +1,24 @@
 import { useState, useEffect } from 'react';
 import { FaWhatsapp, FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../assets/st header logo.png';
+import axios from 'axios';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [settings, setSettings] = useState({ phoneNumber: '254719103288' });
 
   useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/settings');
+        setSettings(res.data.data);
+      } catch (err) {
+        console.error('Error fetching settings');
+      }
+    };
+    fetchSettings();
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -21,6 +33,8 @@ const Navbar = () => {
     { name: 'Why Us', href: '#why-us' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const waLink = `https://wa.me/${settings.phoneNumber.replace('+', '')}`;
 
   return (
     <nav
@@ -50,7 +64,7 @@ const Navbar = () => {
         {/* Action Button */}
         <div className="hidden md:block">
           <a
-            href="https://wa.me/254700000000"
+            href={waLink}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center space-x-2 bg-green-500 hover:bg-green-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg hover:shadow-green-500/20"
@@ -83,7 +97,9 @@ const Navbar = () => {
             </a>
           ))}
           <a
-            href="https://wa.me/254700000000"
+            href={waLink}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center justify-center space-x-2 bg-green-500 text-white py-3 rounded-xl font-bold"
           >
             <FaWhatsapp />

@@ -1,8 +1,74 @@
 import { motion } from 'framer-motion';
 import { FaDownload, FaShareAlt, FaQrcode } from 'react-icons/fa';
-import logo from '../assets/st header logo.png';
+import logo from '../assets/st light pocket.png';
+import { useRef } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 
 const QRSection = () => {
+  const catalogueUrl = "https://stlight.vercel.app"; // Placeholder for your production URL
+  const qrRef = useRef(null);
+
+  const downloadQR = () => {
+    const svg = qrRef.current.querySelector('svg');
+    const svgData = new XMLSerializer().serializeToString(svg);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    const logoImg = new Image();
+    
+    // Set canvas size (larger for padding/title)
+    const padding = 60;
+    const titleHeight = 50;
+    const size = 600;
+    
+    canvas.width = size;
+    canvas.height = size + titleHeight;
+    
+    img.onload = () => {
+      // Background
+      ctx.fillStyle = 'white';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Title
+      ctx.fillStyle = '#0F172A'; // Brand dark
+      ctx.font = 'bold 32px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('STLIGHT-Catalogue', canvas.width / 2, 45);
+      
+      // Draw QR
+      ctx.drawImage(img, padding, titleHeight + padding / 2, size - padding * 2, size - padding * 2);
+      
+      // Draw Logo over QR (Manual draw ensures it remains)
+      logoImg.onload = () => {
+        const logoSize = 100;
+        const x = (canvas.width - logoSize) / 2;
+        const y = (titleHeight + (size - logoSize) / 2);
+        
+        // White background for logo
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.roundRect(x - 5, y - 5, logoSize + 10, logoSize + 10, 10);
+        ctx.fill();
+        
+        ctx.drawImage(logoImg, x, y, logoSize, logoSize);
+        
+        const pngFile = canvas.toDataURL('image/png');
+        const downloadLink = document.createElement('a');
+        downloadLink.download = 'STLIGHT-Catalogue-QR.png';
+        downloadLink.href = pngFile;
+        downloadLink.click();
+      };
+      logoImg.src = logo;
+    };
+
+    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+  };
+
+  const shareLink = () => {
+    navigator.clipboard.writeText(catalogueUrl);
+    alert('Catalogue link copied to clipboard!');
+  };
+
   return (
     <section className="py-24 bg-gray-50 relative overflow-hidden">
       {/* Decorative Circles */}
@@ -26,11 +92,17 @@ const QRSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-              <button className="flex items-center space-x-2 bg-brand-black text-white px-8 py-4 rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-lg">
+              <button 
+                onClick={downloadQR}
+                className="flex items-center space-x-2 bg-brand-black text-white px-8 py-4 rounded-2xl font-bold hover:bg-gray-800 transition-all shadow-lg active:scale-95"
+              >
                 <FaDownload />
                 <span>Download QR</span>
               </button>
-              <button className="flex items-center space-x-2 bg-white border border-gray-200 text-brand-blue px-8 py-4 rounded-2xl font-bold hover:bg-gray-50 transition-all shadow-sm">
+              <button 
+                onClick={shareLink}
+                className="flex items-center space-x-2 bg-white border border-gray-200 text-brand-blue px-8 py-4 rounded-2xl font-bold hover:bg-gray-50 transition-all shadow-sm active:scale-95"
+              >
                 <FaShareAlt />
                 <span>Share Link</span>
               </button>
@@ -42,36 +114,31 @@ const QRSection = () => {
             initial={{ rotate: -2 }}
             whileHover={{ rotate: 0, scale: 1.02 }}
             className="w-full max-w-[400px] relative"
+            ref={qrRef}
           >
             <div className="bg-white p-10 rounded-[2.5rem] shadow-2xl relative z-10 border border-gray-50">
-              {/* Logo in center of QR mockup */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center p-2 z-20">
-                <img src={logo} alt="" className="w-full h-auto" />
-              </div>
               
-              {/* QR Mockup */}
-              <div className="aspect-square bg-gray-50 rounded-2xl border-4 border-gray-50 flex items-center justify-center relative overflow-hidden">
-                <div className="w-full h-full p-4">
-                   {/* Simplified QR Pattern SVG */}
-                   <svg viewBox="0 0 100 100" className="w-full h-full text-brand-black opacity-90">
-                      <rect width="20" height="20" fill="currentColor" />
-                      <rect x="80" width="20" height="20" fill="currentColor" />
-                      <rect y="80" width="20" height="20" fill="currentColor" />
-                      <rect x="25" y="25" width="50" height="50" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="4 2" />
-                      <path d="M40,40 h20 v20 h-20 z M45,45 v10 h10 v-10 z" fill="currentColor" />
-                      <rect x="10" y="30" width="10" height="10" fill="currentColor" />
-                      <rect x="30" y="10" width="10" height="10" fill="currentColor" />
-                      <rect x="60" y="60" width="15" height="15" fill="currentColor" />
-                      <rect x="10" y="55" width="8" height="8" fill="currentColor" />
-                      <rect x="55" y="10" width="8" height="8" fill="currentColor" />
-                      <rect x="80" y="80" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1" />
-                   </svg>
-                </div>
+              {/* QR Code Container */}
+              <div className="aspect-square bg-white rounded-3xl p-4 flex items-center justify-center relative shadow-[inset_0_2px_8px_rgba(0,0,0,0.05)] border border-gray-100">
+                 <QRCodeSVG 
+                    value={catalogueUrl}
+                    size={280}
+                    level="H"
+                    includeMargin={false}
+                    imageSettings={{
+                      src: logo,
+                      height: 50,
+                      width: 50,
+                      excavate: true,
+                    }}
+                    className="w-full h-full"
+                 />
               </div>
               
               <div className="mt-8 text-center">
-                <p className="text-brand-black font-bold text-sm">SCAN TO BROWSE</p>
-                <p className="text-gray-400 text-xs">Available on iOS & Android</p>
+                <div className="w-12 h-1 bg-brand-blue/20 mx-auto mb-6 rounded-full" />
+                <p className="text-brand-black font-extrabold text-sm tracking-widest uppercase">SCAN TO BROWSE</p>
+                <p className="text-gray-400 text-xs mt-1">Direct Access to ST.LIGHT Systems</p>
               </div>
             </div>
             

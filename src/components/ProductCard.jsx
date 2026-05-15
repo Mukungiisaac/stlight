@@ -1,7 +1,24 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaWhatsapp, FaInfoCircle, FaBoxOpen } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onDetails }) => {
+  const [settings, setSettings] = useState({ phoneNumber: '254719103288' });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/settings');
+        setSettings(res.data.data);
+      } catch (err) {
+        console.error('Error fetching settings');
+      }
+    };
+    fetchSettings();
+  }, []);
+
+  const waLink = `https://wa.me/${settings.phoneNumber.replace('+', '')}?text=I'm interested in ${product.name}`;
   return (
     <motion.div
       whileHover={{ y: -8 }}
@@ -48,7 +65,7 @@ const ProductCard = ({ product }) => {
 
         <div className="grid grid-cols-2 gap-3">
           <a
-            href={`https://wa.me/254700000000?text=I'm interested in ${product.name}`}
+            href={waLink}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center space-x-2 bg-brand-green hover:bg-brand-green-dark text-white py-3 rounded-xl font-bold transition-all text-sm"
@@ -56,7 +73,10 @@ const ProductCard = ({ product }) => {
             <FaWhatsapp />
             <span>Inquire</span>
           </a>
-          <button className="flex items-center justify-center space-x-2 bg-white border border-gray-200 hover:border-brand-blue hover:text-brand-blue text-brand-black py-3 rounded-xl font-bold transition-all text-sm">
+          <button 
+            onClick={onDetails}
+            className="flex items-center justify-center space-x-2 bg-white border border-gray-200 hover:border-brand-blue hover:text-brand-blue text-brand-black py-3 rounded-xl font-bold transition-all text-sm active:scale-95"
+          >
             <FaInfoCircle />
             <span>Details</span>
           </button>

@@ -33,17 +33,45 @@ exports.login = async (req, res, next) => {
   }
 };
 
-// @desc    Get current logged in admin
-// @route   GET /api/auth/profile
+// @desc    Update admin details
+// @route   PUT /api/auth/updatedetails
 // @access  Private
-exports.getProfile = async (req, res, next) => {
+exports.updateDetails = async (req, res, next) => {
   try {
-    const admin = await Admin.findById(req.admin.id);
+    const fieldsToUpdate = {
+      email: req.body.email
+    };
+
+    const admin = await Admin.findByIdAndUpdate(req.admin.id, fieldsToUpdate, {
+      new: true,
+      runValidators: true
+    });
 
     res.status(200).json({
       success: true,
       data: admin
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+// @desc    Update password
+// @route   PUT /api/auth/updatepassword
+// @access  Private
+exports.updatePassword = async (req, res, next) => {
+  try {
+    const admin = await Admin.findById(req.admin.id).select('+password');
+
+    // Check current password
+    if (!(await admin.matchPassword(req.body.currentPassword))) {
+      return next(new ErrorResponse('Current password is incorrect', 401));
+    }
+
+    admin.password = req.body.newPassword;
+    await admin.save();
+
+    sendTokenResponse(admin, 200, res);
   } catch (err) {
     next(err);
   }

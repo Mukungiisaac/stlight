@@ -1,7 +1,25 @@
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaWhatsapp, FaArrowRight } from 'react-icons/fa';
 import logo from '../assets/st header logo.png';
 
 const Footer = () => {
+  const [settings, setSettings] = useState({ phoneNumber: '254719103288' });
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/settings');
+        setSettings(res.data.data);
+      } catch (err) {
+        console.error('Error fetching settings');
+      }
+    };
+    fetchSettings();
+  }, []);
+
+  const waLink = `https://wa.me/${settings.phoneNumber.replace('+', '')}`;
+
   return (
     <footer id="contact" className="bg-[#111111] text-white pt-24 pb-12">
       <div className="container mx-auto px-4 md:px-8">
@@ -52,7 +70,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 font-bold uppercase mb-1">Hotline</p>
-                  <p className="text-gray-200 font-bold text-lg">+256 700 000 000</p>
+                  <p className="text-gray-200 font-bold text-lg">{settings.phoneNumber}</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
@@ -102,7 +120,9 @@ const Footer = () => {
       
       {/* Floating WhatsApp Bubble */}
       <a
-        href="https://wa.me/254700000000"
+        href={waLink}
+        target="_blank"
+        rel="noopener noreferrer"
         className="fixed bottom-8 right-8 w-16 h-16 bg-brand-green text-white rounded-full flex items-center justify-center text-3xl shadow-2xl z-50 hover:scale-110 transition-transform animate-bounce"
       >
         <FaWhatsapp />

@@ -30,9 +30,10 @@ const CategorySchema = new mongoose.Schema({
 });
 
 // Create category slug from the name
-CategorySchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lower: true });
-  next();
+CategorySchema.pre('save', function () {
+  if (this.name) {
+    this.slug = slugify(this.name, { lower: true });
+  }
 });
 
 module.exports = mongoose.model('Category', CategorySchema);

@@ -41,6 +41,7 @@ const qr = require('./routes/qr');
 const contact = require('./routes/contact');
 const dashboard = require('./routes/dashboard');
 const upload = require('./routes/upload');
+const settings = require('./routes/settings');
 
 // Mount routers
 app.use('/api/auth', auth);
@@ -51,6 +52,7 @@ app.use('/api/qr', qr);
 app.use('/api/contact', contact);
 app.use('/api/dashboard', dashboard);
 app.use('/api/upload', upload);
+app.use('/api/settings', settings);
 
 // Centralized error handler
 app.use(errorHandler);

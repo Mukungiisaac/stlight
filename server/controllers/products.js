@@ -6,6 +6,26 @@ const Product = require('../models/Product');
 // @access  Public
 exports.getProducts = async (req, res, next) => {
   try {
+    // Check if DB is connected
+    if (require('mongoose').connection.readyState !== 1) {
+      const fs = require('fs');
+      const path = require('path');
+      const mockPath = path.join(__dirname, '..', 'data', 'mockDB.json');
+      let products = [];
+      if (fs.existsSync(mockPath)) {
+        const mockData = JSON.parse(fs.readFileSync(mockPath, 'utf8'));
+        products = mockData.products || [];
+      }
+      
+      return res.status(200).json({
+        success: true,
+        count: products.length,
+        pagination: {},
+        data: products,
+        isMock: true
+      });
+    }
+
     let query;
 
     // Copy req.query
@@ -110,11 +130,32 @@ exports.getProduct = async (req, res, next) => {
   }
 };
 
-// @desc    Create new product
-// @route   POST /api/products
-// @access  Private
 exports.createProduct = async (req, res, next) => {
   try {
+    // Check if DB is connected
+    if (require('mongoose').connection.readyState !== 1) {
+      const fs = require('fs');
+      const path = require('path');
+      const mockPath = path.join(__dirname, '..', 'data', 'mockDB.json');
+      
+      const mockData = JSON.parse(fs.readFileSync(mockPath, 'utf8'));
+      const newProduct = {
+        _id: `mock-prod-${Date.now()}`,
+        ...req.body,
+        createdAt: new Date().toISOString()
+      };
+      
+      mockData.products.push(newProduct);
+      fs.writeFileSync(mockPath, JSON.stringify(mockData, null, 2));
+
+      return res.status(201).json({
+        success: true,
+        message: 'Product added to Local Catalog (Offline Mode)',
+        data: newProduct,
+        isMock: true
+      });
+    }
+
     const product = await Product.create(req.body);
 
     res.status(201).json({
@@ -127,11 +168,31 @@ exports.createProduct = async (req, res, next) => {
   }
 };
 
-// @desc    Update product
-// @route   PUT /api/products/:id
-// @access  Private
 exports.updateProduct = async (req, res, next) => {
   try {
+    // Check if DB is connected
+    if (require('mongoose').connection.readyState !== 1) {
+      const fs = require('fs');
+      const path = require('path');
+      const mockPath = path.join(__dirname, '..', 'data', 'mockDB.json');
+      const mockData = JSON.parse(fs.readFileSync(mockPath, 'utf8'));
+      
+      const index = mockData.products.findIndex(p => p._id === req.params.id);
+      if (index === -1) {
+        return next(new ErrorResponse(`Product not found with id of ${req.params.id}`, 404));
+      }
+
+      mockData.products[index] = { ...mockData.products[index], ...req.body };
+      fs.writeFileSync(mockPath, JSON.stringify(mockData, null, 2));
+
+      return res.status(200).json({
+        success: true,
+        message: 'Product updated in Local Catalog (Offline Mode)',
+        data: mockData.products[index],
+        isMock: true
+      });
+    }
+
     let product = await Product.findById(req.params.id);
 
     if (!product) {
@@ -158,6 +219,29 @@ exports.updateProduct = async (req, res, next) => {
 // @access  Private
 exports.deleteProduct = async (req, res, next) => {
   try {
+    // Check if DB is connected
+    if (require('mongoose').connection.readyState !== 1) {
+      const fs = require('fs');
+      const path = require('path');
+      const mockPath = path.join(__dirname, '..', 'data', 'mockDB.json');
+      const mockData = JSON.parse(fs.readFileSync(mockPath, 'utf8'));
+      
+      const index = mockData.products.findIndex(p => p._id === req.params.id);
+      if (index === -1) {
+        return next(new ErrorResponse(`Product not found with id of ${req.params.id}`, 404));
+      }
+
+      mockData.products.splice(index, 1);
+      fs.writeFileSync(mockPath, JSON.stringify(mockData, null, 2));
+
+      return res.status(200).json({
+        success: true,
+        message: 'Product deleted from Local Catalog (Offline Mode)',
+        data: {},
+        isMock: true
+      });
+    }
+
     const product = await Product.findById(req.params.id);
 
     if (!product) {

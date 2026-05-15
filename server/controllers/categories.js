@@ -6,6 +6,20 @@ const Category = require('../models/Category');
 // @access  Public
 exports.getCategories = async (req, res, next) => {
   try {
+    // Check if DB is connected
+    if (require('mongoose').connection.readyState !== 1) {
+      const fs = require('fs');
+      const path = require('path');
+      const mockData = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'mockDB.json'), 'utf8'));
+      
+      return res.status(200).json({
+        success: true,
+        count: mockData.categories.length,
+        data: mockData.categories,
+        isMock: true
+      });
+    }
+
     const categories = await Category.find();
 
     res.status(200).json({

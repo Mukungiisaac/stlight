@@ -23,6 +23,16 @@ exports.protect = async (req, res, next) => {
     // Verify token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    // If DB is offline, bypass the DB check and provide a mock admin
+    if (require('mongoose').connection.readyState !== 1) {
+      req.admin = {
+        id: decoded.id,
+        role: 'admin', // Default to admin for mock mode
+        email: 'admin@stlight.com'
+      };
+      return next();
+    }
+
     req.admin = await Admin.findById(decoded.id);
 
     next();

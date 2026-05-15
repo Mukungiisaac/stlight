@@ -49,7 +49,7 @@ const ProductSchema = new mongoose.Schema({
   },
   whatsappNumber: {
     type: String,
-    default: '+254700000000'
+    default: '+254719103288'
   },
   createdAt: {
     type: Date,
@@ -61,9 +61,10 @@ const ProductSchema = new mongoose.Schema({
 });
 
 // Create product slug from the name
-ProductSchema.pre('save', function (next) {
-  this.slug = slugify(this.name, { lower: true });
-  next();
+ProductSchema.pre('save', function () {
+  if (this.name) {
+    this.slug = slugify(this.name, { lower: true });
+  }
 });
 
 module.exports = mongoose.model('Product', ProductSchema);

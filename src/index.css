@@ -1,11 +1,17 @@
 @import "tailwindcss";
 
+:root {
+  --primary-color: #2A75BB;
+  --secondary-color: #5E9732;
+  --accent-color: #F9A11B;
+}
+
 @theme {
-  --color-brand-orange: #F9A11B;
-  --color-brand-green: #5E9732;
-  --color-brand-green-dark: #2E6E2D;
-  --color-brand-blue: #2A75BB;
-  --color-brand-blue-deep: #1D4F91;
+  --color-brand-orange: var(--accent-color);
+  --color-brand-green: var(--secondary-color);
+  --color-brand-green-dark: color-mix(in srgb, var(--secondary-color), black 20%);
+  --color-brand-blue: var(--primary-color);
+  --color-brand-blue-deep: color-mix(in srgb, var(--primary-color), black 20%);
   --color-brand-red: #FF0000;
   --color-brand-white: #FFFFFF;
   --color-brand-black: #111111;
