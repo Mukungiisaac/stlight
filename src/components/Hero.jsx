@@ -28,18 +28,22 @@ const Hero = () => {
                 </span>
               </h1>
               <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto md:mx-0">
-                Uganda's premium digital catalogue for high-performance solar energy solutions and intelligent home security systems. Quality engineered for the modern world.
+                Kenya's premium digital catalogue for high-performance solar energy solutions and intelligent home security systems. Quality engineered for the modern world.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-                <button className="w-full sm:w-auto bg-brand-blue hover:bg-brand-blue-deep text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center space-x-2 transition-all shadow-xl shadow-brand-blue/20 hover:-translate-y-1">
-                  <span>Browse Catalogue</span>
-                  <FaArrowRight />
-                </button>
-                <button className="w-full sm:w-auto bg-white border-2 border-gray-100 hover:border-brand-blue text-brand-black px-8 py-4 rounded-2xl font-bold flex items-center justify-center space-x-2 transition-all hover:bg-gray-50 hover:-translate-y-1">
-                  <span>Scan QR Code</span>
-                  <FaQrcode />
-                </button>
+                <a href="#catalogue" className="w-full sm:w-auto">
+                  <button className="w-full bg-brand-blue hover:bg-brand-blue-deep text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center space-x-2 transition-all shadow-xl shadow-brand-blue/20 hover:-translate-y-1">
+                    <span>Browse Catalogue</span>
+                    <FaArrowRight />
+                  </button>
+                </a>
+                <a href="#qr-code" className="w-full sm:w-auto">
+                  <button className="w-full bg-white border-2 border-gray-100 hover:border-brand-blue text-brand-black px-8 py-4 rounded-2xl font-bold flex items-center justify-center space-x-2 transition-all hover:bg-gray-50 hover:-translate-y-1">
+                    <span>Scan QR Code</span>
+                    <FaQrcode />
+                  </button>
+                </a>
               </div>
 
               {/* Social Proof */}

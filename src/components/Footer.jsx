@@ -46,11 +46,17 @@ const Footer = () => {
               Quick Links
             </h4>
             <ul className="space-y-4">
-              {['Product Catalogue', 'Installation Gallery', 'Technical Support', 'Warranty Terms', 'Partner Program'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-gray-400 hover:text-brand-blue transition-colors flex items-center group">
+              {[
+                { name: 'Product Catalogue', href: '#catalogue' },
+                { name: 'Installation Gallery', href: '#gallery' },
+                { name: 'Digital QR Experience', href: '#qr-code' },
+                { name: 'System Advantages', href: '#advantages' },
+                { name: 'Contact & Support', href: '#contact' }
+              ].map((link) => (
+                <li key={link.name}>
+                  <a href={link.href} className="text-gray-400 hover:text-brand-blue transition-colors flex items-center group">
                     <FaArrowRight className="text-[10px] mr-2 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                    {link}
+                    {link.name}
                   </a>
                 </li>
               ))}

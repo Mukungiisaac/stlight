@@ -1,14 +1,22 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import farmImg from '../assets/solar_farm_uganda_1778790789557.png';
 import resImg from '../assets/residential_solar_modern_1778791099374.png';
 import camImg from '../assets/security_camera_installation_1778791133544.png';
 
 const Gallery = () => {
+  const [activeTab, setActiveTab] = useState('All Projects');
+
   const projects = [
     { id: 1, title: 'Utility Scale Solar Farm', category: 'Commercial', image: farmImg, size: 'md:col-span-2 md:row-span-2' },
     { id: 2, title: 'Luxury Residential Install', category: 'Residential', image: resImg, size: 'md:col-span-1 md:row-span-1' },
-    { id: 3, title: 'Corporate Security Network', category: 'Security', image: camImg, size: 'md:col-span-1 md:row-span-1' },
+    { id: 3, title: 'Corporate Security Network', category: 'Commercial', image: camImg, size: 'md:col-span-1 md:row-span-1' },
+    { id: 4, title: 'Smart Home Power Wall', category: 'Residential', image: 'https://images.unsplash.com/photo-1592833159155-c62df1b65634?w=800&auto=format&fit=crop', size: 'md:col-span-1 md:row-span-1' },
   ];
+
+  const filteredProjects = activeTab === 'All Projects' 
+    ? projects 
+    : projects.filter(p => p.category === activeTab);
 
   return (
     <section id="gallery" className="py-24 bg-white">
@@ -22,10 +30,11 @@ const Gallery = () => {
           </div>
           
           <div className="flex items-center space-x-2 bg-gray-100 p-1.5 rounded-2xl">
-             {['All Projects', 'Residential', 'Commercial'].map((tab, i) => (
+             {['All Projects', 'Residential', 'Commercial'].map((tab) => (
                <button 
                  key={tab}
-                 className={`px-6 py-2.5 rounded-xl font-bold transition-all text-sm ${i === 0 ? 'bg-white shadow-sm text-brand-black' : 'text-gray-500 hover:text-brand-black'}`}
+                 onClick={() => setActiveTab(tab)}
+                 className={`px-6 py-2.5 rounded-xl font-bold transition-all text-sm ${activeTab === tab ? 'bg-white shadow-sm text-brand-black' : 'text-gray-500 hover:text-brand-black'}`}
                >
                  {tab}
                </button>
@@ -34,23 +43,29 @@ const Gallery = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
-          {projects.map((project) => (
-            <motion.div
-              key={project.id}
-              whileHover={{ scale: 0.98 }}
-              className={`relative rounded-[2rem] overflow-hidden group shadow-lg ${project.size}`}
-            >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                <span className="text-brand-green font-bold text-xs uppercase tracking-widest mb-2">{project.category}</span>
-                <h3 className="text-white text-2xl font-bold">{project.title}</h3>
-              </div>
-            </motion.div>
-          ))}
+          <AnimatePresence mode='popLayout'>
+            {filteredProjects.map((project) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                key={project.id}
+                whileHover={{ scale: 0.98 }}
+                className={`relative rounded-[2rem] overflow-hidden group shadow-lg ${project.size}`}
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                  <span className="text-brand-green font-bold text-xs uppercase tracking-widest mb-2">{project.category}</span>
+                  <h3 className="text-white text-2xl font-bold">{project.title}</h3>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
     </section>

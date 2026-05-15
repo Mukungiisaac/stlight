@@ -33,12 +33,16 @@ const ProductCard = ({ product, onDetails }) => {
         </div>
         
         {/* Product Image */}
-        <div className="w-full h-full flex items-center justify-center p-8 transition-transform duration-500 group-hover:scale-110">
+        <div className="w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
            {product.image ? (
              <img 
                src={product.image} 
                alt={product.name}
-               className="w-full h-full object-contain"
+               className="w-full h-full object-cover"
+               onError={(e) => {
+                 e.target.onerror = null;
+                 e.target.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop'; // Technical fallback
+               }}
              />
            ) : (
              <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center text-gray-400 text-4xl">

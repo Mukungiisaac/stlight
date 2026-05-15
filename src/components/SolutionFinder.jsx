@@ -1,15 +1,16 @@
-import { FaSearch, FaSlidersH, FaSun, FaPlug, FaLightbulb, FaShieldAlt, FaBatteryFull } from 'react-icons/fa';
+import { FaSearch, FaSlidersH, FaSun, FaPlug, FaLightbulb, FaShieldAlt, FaBatteryFull, FaThLarge } from 'react-icons/fa';
 import { categories } from '../data/products';
 
 const iconMap = {
+  all: <FaThLarge />,
   solar: <FaSun />,
   electrical: <FaPlug />,
+  electronics: <FaBatteryFull />,
   lighting: <FaLightbulb />,
   security: <FaShieldAlt />,
-  power: <FaBatteryFull />,
 };
 
-const SolutionFinder = () => {
+const SolutionFinder = ({ activeCategory, onCategoryChange }) => {
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4 md:px-8">
@@ -38,8 +39,9 @@ const SolutionFinder = () => {
           {categories.map((cat) => (
             <button
               key={cat.id}
+              onClick={() => onCategoryChange(cat.name)}
               className={`flex items-center space-x-2 px-6 py-3 rounded-full border transition-all font-medium ${
-                cat.id === 'solar'
+                (activeCategory === cat.name || (cat.id === 'all' && activeCategory === 'All Categories'))
                   ? 'bg-brand-blue text-white border-brand-blue shadow-lg shadow-brand-blue/20'
                   : 'bg-white text-gray-600 border-gray-100 hover:border-brand-blue hover:text-brand-blue'
               }`}

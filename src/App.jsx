@@ -16,6 +16,7 @@ import AdminDashboard from './pages/admin/Dashboard';
 function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All Categories');
 
   useEffect(() => {
     const applyTheme = async () => {
@@ -53,8 +54,8 @@ function App() {
               <Navbar />
               <main>
                 <Hero />
-                <SolutionFinder />
-                <ProductGrid onSelectProduct={handleOpenModal} />
+                <SolutionFinder activeCategory={selectedCategory} onCategoryChange={setSelectedCategory} />
+                <ProductGrid onSelectProduct={handleOpenModal} selectedCategory={selectedCategory} />
                 <QRSection />
                 <Advantages />
                 <Gallery />

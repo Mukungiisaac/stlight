@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
 import { FaArrowRight } from 'react-icons/fa';
+import { products as localProducts } from '../data/products';
 
-const ProductGrid = ({ onSelectProduct }) => {
+const ProductGrid = ({ onSelectProduct, selectedCategory }) => {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -14,12 +16,16 @@ const ProductGrid = ({ onSelectProduct }) => {
         // Map products to ensure image URLs are correct
         const liveProducts = res.data.data.map(p => ({
           ...p,
-          id: p._id, // Map MongoDB _id to id for the component
+          id: p._id, 
           image: (p.images && p.images.length > 0) ? `http://localhost:5000/${p.images[0]}` : null
         }));
-        setProducts(liveProducts);
+        const allProducts = [...localProducts, ...liveProducts];
+        setProducts(allProducts);
+        setFilteredProducts(allProducts);
       } catch (err) {
         console.error('Error fetching products:', err);
+        setProducts(localProducts);
+        setFilteredProducts(localProducts);
       } finally {
         setLoading(false);
       }
@@ -27,6 +33,14 @@ const ProductGrid = ({ onSelectProduct }) => {
 
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    if (selectedCategory === 'All Categories') {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter(p => p.category === selectedCategory));
+    }
+  }, [selectedCategory, products]);
 
   return (
     <section id="catalogue" className="py-20 bg-white">
@@ -50,9 +64,9 @@ const ProductGrid = ({ onSelectProduct }) => {
               <div key={i} className="aspect-square bg-gray-50 rounded-3xl animate-pulse" />
             ))}
           </div>
-        ) : products.length > 0 ? (
+        ) : filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <ProductCard 
                 key={product.id} 
                 product={product} 
