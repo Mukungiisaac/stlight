@@ -91,39 +91,49 @@ const Navbar = ({ onBack }) => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Translucent Floating Card */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white absolute top-full left-0 w-full py-6 px-4 shadow-xl flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
-          {onBack && (
-             <button 
-               onClick={() => {
-                 onBack();
-                 setIsMobileMenuOpen(false);
-               }}
-               className="text-brand-blue text-lg font-black uppercase tracking-tighter py-2 border-b border-black/5 flex items-center gap-2"
-             >
-               <FaArrowLeft className="text-sm" /> Back to Menu
-             </button>
-          )}
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-brand-black text-lg font-black uppercase tracking-tighter py-2 border-b border-black/5"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-          <a
-            href={waLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center space-x-2 bg-green-500 text-white py-4 rounded-xl font-black uppercase tracking-widest"
-          >
-            <FaWhatsapp />
-            <span>Chat With Us</span>
-          </a>
+        <div className="md:hidden fixed top-20 right-4 left-4 z-50">
+          <div className="bg-white/80 backdrop-blur-xl border border-white/40 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden animate-in fade-in zoom-in-95 duration-300">
+            <div className="p-6 space-y-4">
+              {onBack && (
+                 <button 
+                   onClick={() => {
+                     onBack();
+                     setIsMobileMenuOpen(false);
+                   }}
+                   className="w-full text-left text-brand-blue text-lg font-black uppercase tracking-tighter py-3 border-b border-black/5 flex items-center gap-3 active:scale-95 transition-transform"
+                 >
+                   <FaArrowLeft className="text-sm" /> Back to Menu
+                 </button>
+              )}
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="block text-brand-black text-lg font-black uppercase tracking-tighter py-3 border-b border-black/5 active:scale-95 transition-transform"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {link.name}
+                </a>
+              ))}
+              <a
+                href={waLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-2 bg-green-500 text-white py-5 rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-green-500/20 active:scale-95 transition-transform mt-4"
+              >
+                <FaWhatsapp className="text-xl" />
+                <span>Chat With Us</span>
+              </a>
+            </div>
+          </div>
+          
+          {/* Overlay to close menu when clicking outside */}
+          <div 
+            className="fixed inset-0 -z-10 h-screen w-screen bg-black/10 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
         </div>
       )}
     </nav>
