@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-orange: #F9A11B;
+  --color-brand-green: #5E9732;
+  --color-brand-green-dark: #2E6E2D;
+  --color-brand-blue: #2A75BB;
+  --color-brand-blue-deep: #1D4F91;
+  --color-brand-red: #FF0000;
+  --color-brand-white: #FFFFFF;
+  --color-brand-black: #111111;
+  
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Outfit", sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-brand-black font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/20;
+  }
+  .glass-dark {
+    @apply bg-black/70 backdrop-blur-md border border-white/10;
+  }
+}
