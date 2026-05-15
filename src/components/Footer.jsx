@@ -28,7 +28,7 @@ const Footer = () => {
           <div className="space-y-6 max-w-xs">
             <img src={logo} alt="ST.LIGHT" className="h-10 w-auto brightness-0 invert" />
             <p className="text-gray-400 leading-relaxed text-sm">
-              Leading the transition to clean, intelligent energy across East Africa. Quality you can trust, technology you can rely on.
+              Kenya's premier provider of clean, intelligent energy solutions. Quality you can trust, technology you can rely on.
             </p>
             <div className="flex items-center space-x-4">
               {[FaFacebook, FaInstagram].map((Icon, i) => (

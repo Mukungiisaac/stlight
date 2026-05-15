@@ -68,18 +68,7 @@ function App() {
                 {view === 'categories' ? (
                   <CategorySelection onSelectCategory={handleCategorySelect} />
                 ) : (
-                  <>
-                    <div className="px-6 py-4 flex items-center justify-between bg-gray-50 border-b border-gray-100">
-                      <button 
-                        onClick={handleBackToCategories}
-                        className="text-brand-blue font-black uppercase text-[10px] tracking-widest flex items-center gap-2"
-                      >
-                        ← Main Menu
-                      </button>
-                      <h2 className="text-sm font-black text-brand-black uppercase italic">{selectedCategory}</h2>
-                    </div>
-                    <ProductGrid onSelectProduct={handleOpenModal} selectedCategory={selectedCategory} />
-                  </>
+                  <ProductGrid onSelectProduct={handleOpenModal} selectedCategory={selectedCategory} />
                 )}
               </main>
               <Footer />

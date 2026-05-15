@@ -21,19 +21,21 @@ const ProductCard = ({ product, onDetails }) => {
   const waLink = `https://wa.me/${settings.phoneNumber.replace('+', '')}?text=I'm interested in ${product.name}`;
   return (
     <motion.div
-      whileHover={{ y: -8 }}
-      className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 group"
+      whileHover={{ y: -10 }}
+      className="bg-white rounded-[2rem] overflow-hidden shadow-[0_10px_40px_-15px_rgba(0,0,0,0.1)] hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.2)] transition-all duration-500 border border-gray-100/50 group"
     >
-      <div className="relative aspect-square overflow-hidden bg-gray-50">
-        {/* Category Tag */}
-        <div className="absolute top-4 left-4 z-10">
-          <span className="px-3 py-1 rounded-full bg-brand-blue text-white text-[10px] font-bold uppercase tracking-wider">
-            {product.tag}
-          </span>
+      <div className="relative aspect-[4/5] overflow-hidden bg-[#F9F9F9]">
+        {/* Premium Category Tag */}
+        <div className="absolute top-5 left-5 z-10">
+          <div className="px-3 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/20 shadow-sm">
+            <span className="text-brand-blue text-[9px] font-black uppercase tracking-[0.2em]">
+              {product.category}
+            </span>
+          </div>
         </div>
         
-        {/* Product Image */}
-        <div className="w-full h-full flex items-center justify-center transition-transform duration-500 group-hover:scale-110">
+        {/* Product Image with High-End Presentation */}
+        <div className="w-full h-full flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
            {product.image ? (
              <img 
                src={product.image} 
@@ -41,48 +43,45 @@ const ProductCard = ({ product, onDetails }) => {
                className="w-full h-full object-cover"
                onError={(e) => {
                  e.target.onerror = null;
-                 e.target.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop'; // Technical fallback
+                 e.target.src = 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop';
                }}
              />
            ) : (
-             <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl flex items-center justify-center text-gray-400 text-4xl">
+             <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-300 text-5xl">
                 <FaBoxOpen />
              </div>
            )}
         </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
 
-      <div className="p-6">
-        <h3 className="text-lg font-bold text-brand-black mb-2 line-clamp-2 group-hover:text-brand-blue transition-colors">
+      <div className="p-7">
+        <h3 className="text-xl font-extrabold text-brand-black mb-3 leading-tight line-clamp-2 group-hover:text-brand-blue transition-colors">
           {product.name}
         </h3>
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2">
-          {product.description}
-        </p>
         
-        <div className="mb-6">
-          <span className="text-xs text-gray-400 font-bold uppercase block mb-1">Price</span>
-          <span className="text-xl font-extrabold text-brand-black">
-            KSh {product.price}
+        <div className="mb-6 flex items-baseline gap-2">
+          <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">KSh</span>
+          <span className="text-2xl font-black text-brand-black tracking-tighter">
+            {product.price}
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-3">
+        <div className="flex items-center gap-3">
           <a
             href={waLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center space-x-2 bg-brand-green hover:bg-brand-green-dark text-white py-3 rounded-xl font-bold transition-all text-sm"
+            className="flex-1 flex items-center justify-center space-x-2 bg-brand-green hover:bg-brand-green-dark text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-widest transition-all shadow-lg shadow-brand-green/20 active:scale-95"
           >
-            <FaWhatsapp />
+            <FaWhatsapp className="text-base" />
             <span>Inquire</span>
           </a>
           <button 
             onClick={onDetails}
-            className="flex items-center justify-center space-x-2 bg-white border border-gray-200 hover:border-brand-blue hover:text-brand-blue text-brand-black py-3 rounded-xl font-bold transition-all text-sm active:scale-95"
+            className="w-14 h-14 flex items-center justify-center bg-gray-50 border border-gray-100 hover:border-brand-blue hover:text-brand-blue text-brand-black rounded-2xl transition-all active:scale-95"
           >
-            <FaInfoCircle />
-            <span>Details</span>
+            <FaInfoCircle className="text-xl" />
           </button>
         </div>
       </div>

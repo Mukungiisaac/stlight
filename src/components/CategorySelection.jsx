@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { categories } from '../data/products';
 import { FaArrowRight } from 'react-icons/fa';
 import heroImg from '../assets/hero_solar_smart_home_1778790571520.png';
+import logo from '../assets/st header logo.png';
 
 const CategorySelection = ({ onSelectCategory }) => {
   return (
@@ -17,16 +18,21 @@ const CategorySelection = ({ onSelectCategory }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-[#FDFDFD] to-transparent" />
       </div>
 
-      <div className="container mx-auto max-w-2xl px-6 relative z-10 -mt-16">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-extrabold text-brand-black tracking-tight mb-3">
+      <div className="container mx-auto max-w-2xl px-6 relative z-10 -mt-20">
+        <div className="text-center mb-12">
+          <img 
+            src={logo} 
+            alt="ST.LIGHT Logo" 
+            className="h-16 md:h-20 w-auto mx-auto mb-6 drop-shadow-sm"
+          />
+          <h1 className="text-3xl md:text-4xl font-extrabold text-brand-black tracking-tight mb-2">
             Welcome to <span className="text-brand-blue">ST.LIGHT</span>
           </h1>
-          <p className="text-gray-400 text-xs font-semibold tracking-[0.2em] uppercase">
+          <p className="text-gray-400 text-[10px] font-bold tracking-[0.3em] uppercase">
             Premium Solar & Intelligent Security
           </p>
-          <div className="mt-6 flex justify-center">
-            <div className="h-1 w-12 bg-brand-blue/30 rounded-full" />
+          <div className="mt-8 flex justify-center">
+            <div className="h-1.5 w-16 bg-brand-blue/20 rounded-full" />
           </div>
         </div>
 

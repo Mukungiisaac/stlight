@@ -41,20 +41,18 @@ const Navbar = ({ onBack }) => {
       }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
-        {/* Logo or Back Button */}
-        <div className="flex items-center">
-          {onBack ? (
+        {/* Logo & Back Button Group */}
+        <div className="flex items-center gap-4">
+          <img src={logo} alt="ST.LIGHT" className="h-9 md:h-11 w-auto" />
+          
+          {onBack && (
             <button 
               onClick={onBack}
-              className="flex items-center space-x-2 text-brand-black hover:text-brand-blue transition-all group"
+              className="hidden sm:flex items-center space-x-2 text-brand-black hover:text-brand-blue transition-all group border-l border-gray-200 pl-4 h-6"
             >
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center border border-gray-100 group-hover:bg-brand-blue group-hover:text-white group-hover:border-brand-blue transition-all">
-                <FaArrowLeft />
-              </div>
-              <span className="font-black uppercase text-xs tracking-widest hidden sm:inline">Back to Menu</span>
+              <FaArrowLeft className="text-xs" />
+              <span className="font-black uppercase text-[10px] tracking-widest">Back to Menu</span>
             </button>
-          ) : (
-            <img src={logo} alt="ST.LIGHT" className="h-10 md:h-12 w-auto" />
           )}
         </div>
 
@@ -85,19 +83,28 @@ const Navbar = ({ onBack }) => {
         </div>
 
         {/* Mobile Toggle */}
-        {!onBack && (
-          <button
-            className="md:hidden text-brand-black text-2xl"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-        )}
+        <button
+          className="md:hidden text-brand-black text-2xl"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white absolute top-full left-0 w-full py-6 px-4 shadow-xl flex flex-col space-y-4 animate-in fade-in slide-in-from-top-4 duration-300">
+          {onBack && (
+             <button 
+               onClick={() => {
+                 onBack();
+                 setIsMobileMenuOpen(false);
+               }}
+               className="text-brand-blue text-lg font-black uppercase tracking-tighter py-2 border-b border-black/5 flex items-center gap-2"
+             >
+               <FaArrowLeft className="text-sm" /> Back to Menu
+             </button>
+          )}
           {navLinks.map((link) => (
             <a
               key={link.name}

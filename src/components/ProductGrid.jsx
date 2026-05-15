@@ -43,19 +43,14 @@ const ProductGrid = ({ onSelectProduct, selectedCategory }) => {
   }, [selectedCategory, products]);
 
   return (
-    <section id="catalogue" className="py-20 bg-white">
+    <section id="catalogue" className="py-12 bg-white min-h-[60vh]">
       <div className="container mx-auto px-4 md:px-8">
-        <div className="flex items-end justify-between mb-12">
-          <div>
-            <h2 className="text-4xl font-extrabold text-brand-black mb-4">Live Catalogue</h2>
-            <p className="text-gray-500 max-w-xl">
-              Real-time inventory from our Nairobi warehouse. Certified for performance and durability.
-            </p>
-          </div>
-          <button className="hidden md:flex items-center space-x-2 text-brand-blue font-bold hover:underline">
-            <span>View All Products</span>
-            <FaArrowRight />
-          </button>
+        <div className="flex flex-col items-center mb-16">
+          <div className="w-12 h-1 bg-brand-blue/20 rounded-full mb-6" />
+          <h2 className="text-3xl md:text-4xl font-black text-brand-black uppercase tracking-tighter italic text-center">
+            {selectedCategory} <span className="text-brand-blue">Solutions</span>
+          </h2>
+          <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.3em] mt-4">Certified High-Performance Systems</p>
         </div>
 
         {loading ? (
@@ -81,12 +76,7 @@ const ProductGrid = ({ onSelectProduct, selectedCategory }) => {
           </div>
         )}
 
-        <div className="mt-12 text-center md:hidden">
-          <button className="inline-flex items-center space-x-2 text-brand-blue font-bold">
-            <span>View All Products</span>
-            <FaArrowRight />
-          </button>
-        </div>
+
       </div>
     </section>
   );
