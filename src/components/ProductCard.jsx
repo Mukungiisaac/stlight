@@ -56,9 +56,13 @@ const ProductCard = ({ product, onDetails }) => {
       </div>
 
       <div className="p-7">
-        <h3 className="text-xl font-extrabold text-brand-black mb-3 leading-tight line-clamp-2 group-hover:text-brand-blue transition-colors">
+        <h3 className="text-xl font-extrabold text-brand-black mb-2 leading-tight line-clamp-1 group-hover:text-brand-blue transition-colors">
           {product.name}
         </h3>
+        
+        <p className="text-gray-400 text-xs leading-relaxed mb-6 line-clamp-2 italic">
+          {product.description}
+        </p>
         
         <div className="mb-6 flex items-baseline gap-2">
           <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">KSh</span>
