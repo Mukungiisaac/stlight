@@ -64,12 +64,16 @@ const ProductCard = ({ product, onDetails }) => {
           {product.description}
         </p>
         
-        <div className="mb-6 flex items-baseline gap-2">
-          <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">KSh</span>
-          <span className="text-2xl font-black text-brand-black tracking-tighter">
-            {product.price}
-          </span>
-        </div>
+        {product.price && (
+          <div className="mb-6 flex items-baseline gap-2">
+            <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest">KSh</span>
+            <span className="text-2xl font-black text-brand-black tracking-tighter">
+              {product.price}
+            </span>
+          </div>
+        )}
+
+        {!product.price && <div className="mb-6" />}
 
         <div className="flex items-center gap-3">
           <a

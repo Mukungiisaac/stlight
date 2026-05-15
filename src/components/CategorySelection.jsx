@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { categories } from '../data/products';
 import { FaArrowRight } from 'react-icons/fa';
-import heroImg from '../assets/hero_solar_smart_home_1778790571520.png';
+import heroImg from '../assets/Background.jpeg';
 import logo from '../assets/st header logo.png';
 
 const CategorySelection = ({ onSelectCategory }) => {

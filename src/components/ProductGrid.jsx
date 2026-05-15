@@ -14,11 +14,20 @@ const ProductGrid = ({ onSelectProduct, selectedCategory }) => {
       try {
         const res = await axios.get('http://localhost:5000/api/products');
         // Map products to ensure image URLs are correct
-        const liveProducts = res.data.data.map(p => ({
-          ...p,
-          id: p._id, 
-          image: (p.images && p.images.length > 0) ? `http://localhost:5000/${p.images[0]}` : null
-        }));
+        const liveProducts = res.data.data
+          .map(p => ({
+            ...p,
+            id: p._id, 
+            image: (p.images && p.images.length > 0) ? `http://localhost:5000/${p.images[0]}` : null
+          }))
+          // Filter out test/demo/invalid products
+          .filter(p => 
+            p.name && 
+            p.name.length >= 4 && 
+            !/^\d/.test(p.name) &&
+            !p.description?.toLowerCase().includes('authorize') &&
+            !p.description?.toLowerCase().includes('clicking')
+          );
         const allProducts = [...localProducts, ...liveProducts];
         setProducts(allProducts);
         setFilteredProducts(allProducts);

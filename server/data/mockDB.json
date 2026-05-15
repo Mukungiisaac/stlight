@@ -35,18 +35,5 @@
       "description": "Professional security solutions"
     }
   ],
-  "products": [
-    {
-      "_id": "mock-prod-1778828235910",
-      "name": "345gn",
-      "description": "You can now add, edit, and delete products freely! Please try clicking the \"Authorize Entry\" or \"Save Records\" button again. It should now work perfectly and show a success message: \"Product added to Local Catalog (Offline",
-      "price": " 54657",
-      "category": "Electronics",
-      "image": "uploads/image-1778828234766.jpg",
-      "images": [
-        "uploads/image-1778828234766.jpg"
-      ],
-      "createdAt": "2026-05-15T06:57:15.910Z"
-    }
-  ]
+  "products": []
 }

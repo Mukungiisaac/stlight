@@ -56,10 +56,13 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 {product.name}
               </h2>
               
-              <div className="flex items-baseline space-x-2 mb-8">
-                <span className="text-3xl font-black text-brand-blue">KSh {product.price}</span>
-                <span className="text-sm text-gray-400 font-medium">Incl. VAT</span>
-              </div>
+              {product.price && (
+                <div className="flex items-baseline space-x-2 mb-8">
+                  <span className="text-3xl font-black text-brand-blue">KSh {product.price}</span>
+                  <span className="text-sm text-gray-400 font-medium">Incl. VAT</span>
+                </div>
+              )}
+              {!product.price && <div className="mb-8" />}
 
               <div className="space-y-8 mb-10">
                 <div>
@@ -73,15 +76,15 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                   <div className="flex items-start space-x-3 p-4 rounded-2xl bg-gray-50 border border-gray-100">
                     <FaCheckCircle className="text-brand-green mt-1 shrink-0" />
                     <div>
-                      <span className="block font-bold text-brand-black text-sm">Certified Quality</span>
-                      <span className="text-xs text-gray-500 text-nowrap">Meets KEBS standards</span>
+                      <span className="block font-bold text-brand-black text-sm">Best Prices Guaranteed</span>
+                      <span className="text-xs text-gray-500">Affordable for every budget</span>
                     </div>
                   </div>
                   <div className="flex items-start space-x-3 p-4 rounded-2xl bg-gray-50 border border-gray-100">
                     <FaShieldAlt className="text-brand-blue mt-1 shrink-0" />
                     <div>
-                      <span className="block font-bold text-brand-black text-sm">2 Year Warranty</span>
-                      <span className="text-xs text-gray-500">Full replacement support</span>
+                      <span className="block font-bold text-brand-black text-sm">Premium Quality</span>
+                      <span className="text-xs text-gray-500">Trusted, high-performance products</span>
                     </div>
                   </div>
                 </div>
