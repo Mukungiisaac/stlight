@@ -1,12 +1,15 @@
 import solarPanelImg from '../assets/solar_panel.png';
 import inverterImg from '../assets/inverter.png';
+import residentialImg from '../assets/residential_solar_modern_1778791099374.png';
+import securityImg from '../assets/security_camera_installation_1778791133544.png';
+import heroImg from '../assets/hero_solar_smart_home_1778790571520.png';
 
 export const categories = [
-  { id: 'solar', name: 'Solar', icon: 'solar', banner: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=800&auto=format&fit=crop' },
-  { id: 'electricals', name: 'Electricals', icon: 'electrical', banner: 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=800&auto=format&fit=crop' },
-  { id: 'electronics', name: 'Electronics', icon: 'electronics', banner: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=800&auto=format&fit=crop' },
-  { id: 'lighting', name: 'Lighting', icon: 'lighting', banner: 'https://images.unsplash.com/photo-1510333300280-99933324652a?w=800&auto=format&fit=crop' },
-  { id: 'security', name: 'Advanced Security Systems', icon: 'security', banner: 'https://images.unsplash.com/photo-1557862921-37829c790f19?w=800&auto=format&fit=crop' },
+  { id: 'solar', name: 'Solar', icon: 'solar', banner: solarPanelImg },
+  { id: 'electricals', name: 'Electricals', icon: 'electrical', banner: inverterImg },
+  { id: 'electronics', name: 'Electronics', icon: 'electronics', banner: heroImg },
+  { id: 'lighting', name: 'Lighting', icon: 'lighting', banner: residentialImg },
+  { id: 'security', name: 'Advanced Security Systems', icon: 'security', banner: securityImg },
 ];
 
 export const products = [

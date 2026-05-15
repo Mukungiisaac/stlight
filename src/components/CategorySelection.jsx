@@ -54,9 +54,10 @@ const CategorySelection = ({ onSelectCategory }) => {
               className="relative h-28 w-full rounded-[1.5rem] overflow-hidden group shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] transition-all duration-500"
             >
               {/* High-Contrast Background Overlay */}
+              <div className="absolute inset-0 bg-brand-black" />
               <img 
                 src={cat.banner} 
-                alt={cat.name} 
+                alt="" 
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.7] group-hover:brightness-[0.8]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-brand-black/80 via-brand-black/20 to-transparent" />
